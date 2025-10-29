@@ -43,8 +43,8 @@ sudo apt install -y python3-venv python3-pip screen git   libglib2.0-0 libnss3 l
 
 ```bash
 cd ~/pycore
-python3 -m venv .venv
-source .venv/bin/activate
+python3 -m venv venv
+source venv/bin/activate
 ```
 
 ### 🔹 Instalación de dependencias
@@ -57,12 +57,12 @@ python -m playwright install-deps
 
 ### 🔹 Ejecución del Core API
 
-El servicio puede lanzarse dentro de un `screen` para mantenerlo activo:
+El servicio debe lanzarse dentro de un `screen` para mantenerlo activo:
 
 ```bash
 screen -S core
-source ~/pycore/.venv/bin/activate
-cd ~/pycore
+cd pycore
+source venv/bin/activate
 xvfb-run -a uvicorn core_api:app --host 0.0.0.0 --port 9000
 ```
 
@@ -89,9 +89,8 @@ screen -r core
 
 ```bash
 cd ~/wabot
-python3 -m pip install --user nodeenv
-nodeenv .nodeenv --node=18.20.4
-source .nodeenv/bin/activate
+python3 -m venv venv
+source venv/bin/activate
 ```
 
 ### 🔹 Inicializar y configurar dependencias
@@ -108,7 +107,7 @@ Dentro de un nuevo `screen`:
 ```bash
 screen -S wabot
 cd ~/wabot
-source .nodeenv/bin/activate
+source venv/bin/activate
 node index.js
 ```
 
@@ -154,17 +153,20 @@ screen -r wabot
 ### 1️⃣ Core API
 ```bash
 screen -S core
-source ~/pycore/.venv/bin/activate
+cd pycore
+source venv/bin/activate
 xvfb-run -a uvicorn core_api:app --host 0.0.0.0 --port 9000
 ```
+Luego CTRL+A, CTRL+D
 
 ### 2️⃣ Bot de WhatsApp
 ```bash
 screen -S wabot
-cd ~/wabot
-source .nodeenv/bin/activate
+cd wabot
+source venv/bin/activate
 node index.js
 ```
+Luego CTRL+A, CTRL+D
 
 ---
 
@@ -195,9 +197,3 @@ Si las respuestas son correctas, el bot debería funcionar sin errores.
 
 ## 👨‍💻 Autor
 Proyecto creado y probado por **Agustín González**.
-
----
-
-## 🪪 Licencia
-
-Libre uso con fines educativos y experimentales.
